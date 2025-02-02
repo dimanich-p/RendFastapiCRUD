@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients Management</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: auto; padding: 20px; }
+        input, button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Clients Management</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="phone" placeholder="Phone">
+        <button onclick="addClient()">Add Client</button>
+        
+        <h3>Clients List</h3>
+        <ul id="clients-list"></ul>
+    </div>
+
+    <script>
+        function fetchClients() {
+            axios.get('http://127.0.0.1:8000/clients/')
+                .then(response => {
+                    const clients = response.data;
+                    let list = '';
+                    clients.forEach(client => {
+                        list += `<li>${client.name} - ${client.email} - ${client.phone} 
+                                 <button onclick="deleteClient(${client.id})">Delete</button>
+                                 </li>`;
+                    });
+                    document.getElementById('clients-list').innerHTML = list;
+                })
+                .catch(error => console.error(error));
+        }
+
+        function addClient() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            axios.post('http://127.0.0.1:8000/clients/', { name, email, phone })
+                .then(() => {
+                    fetchClients();
+                    document.getElementById('name').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('phone').value = '';
+                })
+                .catch(error => console.error(error));
+        }
+
+        function deleteClient(clientId) {
+            axios.delete(`http://127.0.0.1:8000/clients/${clientId}`)
+                .then(() => fetchClients())
+                .catch(error => console.error(error));
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchClients);
+    </script>
+</body>
+</html>
