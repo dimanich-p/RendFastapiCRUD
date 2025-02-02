@@ -25,7 +25,7 @@
 
     <script>
         function fetchClients() {
-            axios.get('http://127.0.0.1:8000/clients/')
+            axios.get('https://rendfastapicrudhttps-github-com-dimanich.onrender.com/clients/')
                 .then(response => {
                     const clients = response.data;
                     let list = '';
@@ -44,7 +44,7 @@
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             
-            axios.post('http://127.0.0.1:8000/clients/', { name, email, phone })
+            axios.post('https://rendfastapicrudhttps-github-com-dimanich.onrender.com/clients/', { name, email, phone })
                 .then(() => {
                     fetchClients();
                     document.getElementById('name').value = '';
@@ -55,7 +55,7 @@
         }
 
         function deleteClient(clientId) {
-            axios.delete(`http://127.0.0.1:8000/clients/${clientId}`)
+            axios.delete(`https://rendfastapicrudhttps-github-com-dimanich.onrender.com/clients/${clientId}`)
                 .then(() => fetchClients())
                 .catch(error => console.error(error));
         }
