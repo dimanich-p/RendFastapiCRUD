@@ -49,7 +49,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://dimanich-p.github.io",
-                   "https://clinquant-ganache-973065.netlify.app"],  # Allow origins
+                   "https://wagabaga.netlify.app"],  # Allow origins
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods
     allow_headers=["*"],  # Allow all headers
