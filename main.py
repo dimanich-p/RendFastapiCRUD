@@ -43,10 +43,17 @@ class ClientResponse(ClientCreate):
 # FastAPI app instance
 app = FastAPI()
 
+allowed_ips = [
+    "http://185.199.111.153",
+    "http://185.199.108.153",
+    "http://185.199.110.153",
+    "http://185.199.109.153"
+]
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://dimanich-p.github.io"],  # Allow all origins
+    allow_origins=allowed_ips,  # Allow origins
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods
     allow_headers=["*"],  # Allow all headers
